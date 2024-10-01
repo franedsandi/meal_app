@@ -8,10 +8,9 @@ import '../models/meal.dart';
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({
     super.key,
-    /* required this.onToggleFavorite, */
     required this.avaliableMeals,
   });
-/*   final void Function(Meal meal) onToggleFavorite; */
+
   final List<Meal> avaliableMeals;
 /* the context dous not exist in stateless  widget , we need to build it*/
 
@@ -24,7 +23,6 @@ class CategoriesScreen extends StatelessWidget {
         builder: (ctx) => MealsScreen(
           title: category.title,
           meals: filteredMeals,
-/*           onToggleFavorite: onToggleFavorite, */
         ),
       ),
     );
@@ -41,7 +39,6 @@ class CategoriesScreen extends StatelessWidget {
         mainAxisSpacing: 20,
       ),
       children: [
-        /* avaliableCategories.map((category)=>  CategoryGridItem(category: category)).toList   ----- alternative */
         for (final category in availableCategories)
           CategoryGridItem(
             category: category,
