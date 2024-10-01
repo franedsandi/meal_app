@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../providers/meals_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_app/models/meal.dart';
 import 'package:meal_app/screens/filters.dart';
 import 'package:meal_app/screens/meals.dart';
 import './categories.dart';
 import '../widgets/main_drawer.dart';
+import '../providers/favorites_provider.dart';
+import '../providers/filters_provider.dart';
 
 const kInitialFilters = {
   Filter.glutenFree: false,
@@ -25,23 +26,23 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
 
-  final List<Meal> _favoriteMeals = [];
+/*   final List<Meal> _favoriteMeals = []; */
   Map<Filter, bool> _selectedFilters = kInitialFilters;
 
-  void _toggleMealFavoriteStatus(Meal meal) {
-    final isExisting = _favoriteMeals.contains(meal);
+  /* void _toggleMealFavoriteStatus(Meal meal) {
+    final isExisting = _favoriteMeals.contains(meal); */
 
-    void _showInfoMessage(String message) {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          /* default time 4 s */
-          content: Text(message),
-        ),
-      );
-    }
-
-    if (isExisting) {
+/*   void _showInfoMessage(String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        /* default time 4 s */
+        content: Text(message),
+      ),
+    );
+  }
+/* 
+    if (isExis */ting) {
       setState(() {
         _favoriteMeals.remove(meal);
       });
@@ -52,7 +53,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       });
       _showInfoMessage('This meal is now in your favotite meals list!');
     }
-  }
+  } */
 
   void _selectedPage(int index) {
     setState(() {
@@ -98,18 +99,20 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       },
     ).toList();
     Widget activePage = CategoriesScreen(
-      onToggleFavorite: _toggleMealFavoriteStatus,
+      /*  onToggleFavorite: _toggleMealFavoriteStatus, */
       avaliableMeals: avaliableMeals,
     );
     var activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
+      final favoriteMeals = ref.watch(favoriteMealsProvider);
       activePage = MealsScreen(
-        meals: _favoriteMeals,
-        onToggleFavorite: _toggleMealFavoriteStatus,
+        meals: favoriteMeals,
+        /* onToggleFavorite: _toggleMealFavoriteStatus, */
       );
       activePageTitle = 'Favorites';
     }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(activePageTitle),
