@@ -56,6 +56,7 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
             onTap: () {
+              Navigator.of(context).pop();
               onSelectScreen('meals');
             },
           ),
@@ -73,6 +74,7 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
             onTap: () {
+              Navigator.of(context).pop();
               onSelectScreen('filters');
             },
           ),
